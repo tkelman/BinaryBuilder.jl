@@ -12,3 +12,5 @@ make -j$(nproc) install
 cd ../PRoot-$PROOT_VER/src
 cp ../../usr/include/talloc.h .
 make -j$(nproc) install LDFLAGS="-L../../usr/lib -ltalloc" DESTDIR=../../usr/bin
+cd ../..
+rm -rf PRoot-$PROOT_VER talloc-$TALLOC_VER
