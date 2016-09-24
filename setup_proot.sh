@@ -7,11 +7,17 @@ TALLOC_VER=2.1.8
 curl -L https://github.com/proot-me/PRoot/archive/v$PROOT_VER.tar.gz | tar -xzf -
 curl -L https://www.samba.org/ftp/talloc/talloc-$TALLOC_VER.tar.gz | tar -xzf -
 cd talloc-$TALLOC_VER
-./configure --disable-python --prefix=../usr
-make -j$(nproc) install
-cd ../PRoot-$PROOT_VER/src
-cp ../../usr/include/talloc.h .
-make -j$(nproc) install LDFLAGS="-L../../usr/lib -ltalloc" DESTDIR=../../usr/bin
+if [ -e /usr/lib/x86_64-linux-gnu/libtalloc.so.2 ]; then
+  cp talloc.h ../PRoot-$PROOT_VER/src
+  cd ../PRoot-$PROOT_VER/src
+  make -j$(nproc) install LDFLAGS="/usr/lib/x86_64-linux-gnu/libtalloc.so.2" DESTDIR=../../usr/bin
+else
+  ./configure --disable-python --prefix=../usr
+  make -j$(nproc) install
+  cp ../usr/include/talloc.h ../PRoot-$PROOT_VER/src
+  cd ../PRoot-$PROOT_VER/src
+  make -j$(nproc) install LDFLAGS="-L../../usr/lib -ltalloc" DESTDIR=../../usr/bin
+fi
 cd ../..
 rm -rf PRoot-$PROOT_VER talloc-$TALLOC_VER
 
