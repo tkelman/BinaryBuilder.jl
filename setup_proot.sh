@@ -25,7 +25,7 @@ rm -rf PRoot-$PROOT_VER talloc-$TALLOC_VER
 # mkdir centos6
 # curl -L https://github.com/CentOS/sig-cloud-instance-images/raw/CentOS-6/docker/centos-6-docker.tar.xz | tar -C centos6 -xJf -
 # cd centos6
-# ../usr/bin/proot -R .
+# LD_LIBRARY_PATH=$PWD/../usr/lib ../usr/bin/proot -R .
 # cd ..
 # chmod +w -R centos6
 
@@ -33,6 +33,6 @@ rm -rf PRoot-$PROOT_VER talloc-$TALLOC_VER
 # mkdir opensuse421
 # curl -L https://github.com/openSUSE/docker-containers-build/raw/openSUSE-42.1/docker/openSUSE-42.1.tar.xz | tar -C opensuse421 -xJf -
 # cd opensuse421
-# ../usr/bin/proot -R .
+# LD_LIBRARY_PATH=$PWD/../usr/lib ../usr/bin/proot -R .
 # cd ..
 # chmod +w -R opensuse421
